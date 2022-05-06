@@ -1,0 +1,1 @@
+[{"id":1,"title":"titulo_1","price":100,"thumbnail":"URL_1","nombreArchivo":"archivo1"},{"id":2,"title":"titulo_2","price":200,"thumbnail":"URL_2","nombreArchivo":"archivo1"},{"id":3,"title":"titulo_3","price":300,"thumbnail":"URL_3","nombreArchivo":"archivo3"}]

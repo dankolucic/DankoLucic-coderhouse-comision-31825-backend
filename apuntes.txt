@@ -1,0 +1,1117 @@
+General
+
+    Repositorio GIT
+
+            Crear repositorio directo en GitHub (primera vez)
+
+            Subir archivos (por primera vez) al repositorio recien creado.  
+                git init
+                git add .
+                git commit -m "first commit"
+                git branch -M main
+                git remote add origin https://github.com/DankoLucic/DankoLucic-coderhouse-comision-19845-reactjs.git
+                git push -u origin main
+
+            Subir archivos (no por primera vez)
+                git add .
+                git commit -m "second commit"
+                git push -u origin main  
+
+Clase 1 | Principios de programación Backend
+
+Clase 2 | Principios básicos de Javascript
+
+Clase 3 | Programación asincrónica y sincrónica
+
+    - Las funciones tambien son objetos
+
+        En javascript las funciones se comportan como objetos. Por lo tanto, es posible asignar una declaración de función a una variable. Ej: 
+
+            const mostrar = function (params){
+                console.log(params)
+            }
+
+    - Nueva declaración de funciones
+
+        La nueva sintaxis consiste en declarar unicamente los parámetros, y luego concatenarlos con el cuerpo de la función mediante el operador "fecha gorda" (=>). Ej:
+
+            const mostrar = (params) => {
+                console.log(params)
+            }
+            //llamada a la función: mostrar(args)
+
+    - Funciones de un solo parámetro
+
+        los paréntesis se vuelven opciones. Ej:
+
+            const mostrar = params => {
+                console.log(params)
+            } 
+
+    - Funciones de una sola instrucción
+
+        las llaves se vuelven opciones, el cuerpo se puede escribir en la misma línea de la declaración y el resultado de computar esa única línea se devuelve como resultado de la función, como si tuviera un "return" adelante. A esto se le conoce como "return implícito". EJ: 
+
+            const mostrar = params => console.log(params).
+
+            //En este caso la función devolvería "unidefined" ya que console.log es de tipo void y por lo tanto no devuelve nada.
+
+    - Return implícito
+
+        Un ejemplo igualmente trivial pero mas ilustrativo de return implícito sería el siguiente:
+
+            const promediar = (a,b) => (a+b)/2
+            const p = promediar(4,8)
+            console.log(p) //6
+
+    - Funciones como parámetros
+
+        Javascript nos permite hacer que una función reciba como parámetro una referencia a otra función. EJ: 
+
+            const ejecutar = unaFuncion => unaFuncion()
+            const saludar = () => console.log("saludar")
+            ejecutar(saludar)
+
+        Esto también funciona con funciones anónimas con parámetros. Ej: 
+
+            const ejecutar = (unaFuncion, params) => unaFuncion(params)
+            const saludar = nombre => console.log(`saludos,${nombre}`)
+            ejecutar(saludar, "terricola")
+            // creo innecesaria esta vuelta, con saludar("terricola") se logra lo mismo.
+    
+    - Callback
+
+        - un callback es una función que se envía como argumento a otra función
+
+        - La intención es que la función que hace de receptora ejecute la función que se le está pasando por parámetro.
+
+        - Podemos decir que la función "ejecutar" que usamos en el punto anterior "recibe un callback"
+
+        Ejemplo callback
+
+            funcion escribirYLoguear(texto, callbackParaLoguear){
+                //simulamos que escribimos un archivo
+                console.log(texto)
+                //al finalizar, ejecutamos el callback
+                callbackParaLoguear("archivo escrito con éxito")
+            }
+
+            escribirYLoguear("hola mundo de los callbacks!", (mensajeParaLoguear) => {
+                const fecha = new Date().toLocaleDateString()
+                console.log(`${fecha}: ${mensajeParaLoguear}`)
+            })
+
+            En este ejemplo, "callbackParaLoguear" es una función anónima enviada como argumento a la función "escribirYLoguear" que obtiene la fecha de grabación y muestra un mensaje por pantalla
+
+        Algunas convenciones de Callback
+
+            - El callback siempre es el último parámetro.
+            - El callback suele ser una función que recibe dos parámetros.
+            - La función llama al callback al terminar de ejecutar todas sus operaciones
+            - Si la operación fue exitosa, la función llamará al callback pasando null como primer parámetro y si generó algún resultado este se pasará como segundo parámetro.
+            - Si la operación resultó en un error, la función llamará al callback pasando el error obteniendo como primer parámetro.
+        
+        Ejemplo convenciones
+
+            Desde el lado del callback, estas funciones deberán saber cómo manejar los parámetros. Por este motivo, nos encontraremos muy a menudo con la siguiente estructura
+
+                const ejemploCallback = (error, resultado) {
+                    if (error){
+                        //hacer algo con el error!
+                    }
+                    else{
+                        //hacer algo con el resultado
+                    }
+                }
+
+    - Promesas
+
+        - Una promesa es un objeto que encapsula una operación, y que permite definir acciones a tomar luego de finalizada dicha operación, según el resultado de la misma. Para ello, permite asociar manejadores que actuarán sobre un eventual valor (resultado).
+
+        Estados de una Promesas
+
+            El estado inicial de una promesa es:
+                - Pendiente (pending)
+            Una vez que la operación contenida se resuelve, el estado de la promesa pasa a:
+                - Cumplida (fulfilled): la operación salió bien, y su resultado será manejado por el callback asignado mediante el método:
+                    .then()
+                - Rechazada (reject): la operación falló, y su error será manejando por el callback asignado mediante el método:
+                    .catch().
+
+        Promesas: creación
+
+            function dividir (dividendo, divisor){
+                return new Promise((resolve, reject))=>{
+                    if(divisor == 0){
+                        reject("no se puede dividir por cero")
+                    }
+                    else{
+                        resolve( dividendo / divisor )
+                    }
+                })
+            }
+
+        Promesas: uso (sale bien)
+
+            dividir(10,2)
+            .then(resultado => {
+                console.log(`resultado: ${resultado}`)
+            })
+            .catch(error => {
+                console.log(`error:${error}`)
+            })
+            //muestra por pantalla
+            //resultado: 5
+
+        Promesas: uso (sale mal)
+
+            dividir(10,0)
+            .then(resultado => {
+                console.log(`resultado: ${resultado}`)
+            })
+            .catch(error => {
+                console.log(`error:${error}`)
+            })
+            //muestra por pantalla
+            //error: no se puede dividir por cero
+            
+        Encadenamiento de Promesas
+
+            Una llamada a primose.then() devuelve otra promesa, para que podamos llamar al siguient .then().
+
+                new Promise(function (resolve,reject){
+                    setTimeOut(() => resolve(1), 1000);
+                })
+                .then(result => {
+                    console.log(result); //1
+                    return result * 2;
+                })
+                .then(result =>{
+                    console.log(retult); //2
+                    return result * 2;
+                })
+                .then(result =>{
+                    console.log(retult); //4
+                    return result * 2;
+                })
+
+    - Sincronismo vs Asincronismo
+
+        Sincronismo: Ejecución secuencial. cuando se termina la primera operación, comienza la segunda.
+
+        Asincronismo: Ejecución en paralelo. Cuando termina una operación, se envía el resultado, pudiendo correr en paralela con otra operación.
+
+        Ejecución sincrónica: Repasemos
+
+            - Cuando escribimos más de una instrucción en un programa, esperamos que las instrucciones se ejecuten comenzando desde la primera línea, una por una, de arriba hacia abajo hasta llegar al final del bloque de código.
+
+            - Si una instrucción es una llamada a otra instrucción, la ejecución se pausa y se procede a ejecutar esa función.
+
+            - Sólo una vez ejecutadas todas las intrucciones de esa función , el programa retomará con el flujo de instrucciones que venía ejecutando antes.
+
+        Ejemplo Ejecucicón sincrónica
+
+            function funA(){
+                console.log(1)
+                funB()
+                console.log(2)
+            }
+            function funB(){
+                console.log(3)
+                funC()
+                console.log(4)
+            }
+            function funC(){
+                console.log(5)
+            }
+
+            //al ejecutar la funcion funA() se muestra lo siguiente por pantalla:
+            1
+            3
+            5
+            4
+            2
+
+            - En todo momento, sólo se están ejecutando las instrucciones de una sola de las funciones a la vez. O sea, debe finalizar una función para poder continuar con la otra.
+
+            - El fun de una función marca el inicio de la siguiente, y el fin de ésta, el inicio de la que le sigue, asi sucesivamente, describiendo una secuencia que ocurre en una única línea de tiempo.
+
+        Comportamiento de una función: Bloqueante vs No-Bloqueante
+
+            Cuando alguna de las instrucciones dentro de una función intente acceder a un recurso que se encuentre fuera del programa (por ejemplo, enviar un mensaje por la red, o leer un archivo del disco) nos encontramos con dos maneras distintas de hacerlo: en forma bloqueante, o en forma no-bloqueante (bocking o non-blocking).
+
+        Operaciones Bloqueantes
+
+            - En la mayoría de los casos, precisamos que el programa ejecute todas sus operaciones en forma secuencial, y sólo comenzar una instrucción luego de haber terminado la anterior.
+
+            - A las operaciones que obligan al programa a esperar a que se finalicen antes de pasar a ejecutar la siguiente instrucción se las conoce como:
+                bloqueantes.
+            
+            - Este tipo de operaciones permite que el programa se comporte de la manera mas intuitiva.
+
+            - Permiten la ejecución de una sola operación en simultáneo.
+
+            - A este tipo de ejecución se las conoce como:
+                sincrónica.
+
+        Operaciones NO-Bloqueantes
+
+            - En algunos casos esperar a que una operación termine para iniciar la siguiente podría causar grandes demoras en la ejecución del programa.
+
+            - Por eso que Javascript ofrece una segunda opción: las operaciones:
+                no-bloqueantes.
+            
+            - Este tipo de operaciones permiten que, una vez iniciadas, el programa pueda continuar con la siguiente instrucción, sin esperar a que finalice la anterior.
+
+            - Permite la ejecución de varias operaciones en paralelo, sucediendo al mismo tiempo.
+
+            - A este tipo de ejecución se la conoce como:
+                asincrónica.
+
+        Concepto Ejecución asincrónica
+
+            - Para poder usar funciones que realicen operaciones no bloqueantes debemos aprender a usarlas adecuadamente, sin generar efectos adversos en forma accidental.
+
+            - Cuando el código que se ejecuta en forma sincrónica. establecer el orden de ejecución consiste en decidir qué instrucción escribir primero.
+
+            - Cuando se trata de ejecución asincrónica, solo sabemos en qué orden comenzarán su ejecución las instrucciones, pero no sabemos en qué momento ni en qué orden terminarán de ejecutarse.
+
+        Ejemplo Ejecución asincrónica
+
+            const escribirArchivo = require("./escrArch.js")
+
+            console.log("inicio del programa")
+
+            //el creador de esta función la definió como no bloqueante. Recibe un callback que se ejecutará al finalizar la escritura.
+
+            escribirArchivo("hola mundo", () =>{
+                console.log("terminè de escribir el archivo")
+            })
+
+            console.log("fin del programa")
+
+            //se mostrata en pantalla:
+            // > inicio del programa
+            // > fin del programa
+            // > terminè de escribir el archivo
+
+            En el ejemplo no se bloquea la ejecución normal del programa y se permite que este se siga ejecutando. La ejecución de la operación de escritura "comienza" e inmediatamente cede el control a la siguiente instrucción, que escribe por pantalla le mensaje de finalización.
+
+            Cuando la operación de escritura termina, ejecuta el callback que informará por pantalla que la escritura se realizó con éxito.
+
+        Ejemplo Ejecución Asincrónica: Aclaración
+
+            Si queremos que el mensaje de "finalizado" salga después de haber grabado el archivo, anidaremos las instrucciones dentro del callback de la siguiente manera:
+
+                escribirArchivo("hola mundo", () => {
+                    console.log("terminè de escribir el archivo")
+                    console.log("fin del programa")
+                })
+
+            Esto funciona porque lo (único) que podemos controlar en este tipo de operaciones es que el callback siempre se ejecuta luego de finalizar todas las demas instrucciones involucradas en ese llamado.
+        
+        Timers
+
+            setTimeout
+
+                setTimeout(function, miliseconds)
+
+                    - Es una función nativa, no hace falta importarla.
+                    - la función setTimeout() recibe un callback, y lo ejecuta después de un número específico de milisegundos.
+                    - Trabaja sobre un modelo asincrónico no bloqueante
+            
+            setIneterval
+
+                setInterval(cb, milisecond)
+
+                    - Es una función nativa, no hace falta importarla.
+                    - La función setInterval() tambien recibe un callback, pero a diferencia de setTimeout() lo ejecuta una y otra vex cada vez que se cumple la cantidad de milisegundos indicada.
+                    - Trabaja sobre un modelo asincrónico no bloqueante.
+                    - El método setInterval() continuará llamando al callback hasta que se llame a clearInterval() o se cierre la ventana.
+                    - El objeto devuelto por setInterval() se usa como argumento para llamar a la función clearInterval().
+
+    - Asincronismo y callbacks
+
+        Realizar un programa no bloqueante utilizando timers y callbacks
+
+        Desarrollar una función "mostrarLetras" que reciba un string como parámetro y permita mostrar una vez por segundo cada uno de sus caracteres.
+
+        Al finalizar, debe invocar a la siguiente función que se le pasa también como parámetro: const fin = () => console.log("terminé").
+
+        Realizar tres llamdas a "mostrarLetras" con el mensaje "Hola!" y demoras de 0, 250 y 500 ms verificando que los mensajes de salida se intercalen.
+
+        Respuesta Danko:
+
+            function mostrarLetras (params, unaFuncion){
+
+                for (i=0, i<params.length, i++){
+                    setTimeout(function(){
+                        console.log(`${charAt(i)}`)
+                    }, 1000)
+                }
+
+                unaFuncion();
+
+            }
+
+            const fin = () => console.log("terminé");
+
+            setTimeout(
+                mostrarLetras("Hola", fin)
+            ,0);
+
+            setTimeout(
+                mostrarLetras("Hola", fin)
+            ,250);
+
+            setTimeout(
+                mostrarLetras("Hola", fin)
+            ,500);
+        
+Clase 4 | Manejo de Archivos en Javascript
+
+    Introducción
+
+        - En todo sistema, es posible que nos topemos con la necesidad de que algunos datos persistan más allá del fin de la ejecución del programa (que persistan mas allá de que el PC se apague)
+
+        - Una de las opciones con las que contamos es el uso de archivos.
+
+        - Según el caso, existen ventajas y desventajas en utilizar el sistema de archivos como medio de almacenamiento de información.
+    
+    Ventajas del uso de archivos
+
+        - Son fáciles de usar.
+
+        - No requieren el uso de programas externos para su creación, lectura o edición.
+
+        - En ocasiones, pueden ser abiertos y editados desde programas de edición de textos simples como un bloc de notas (siempre que se trate de texto!)
+
+        - Son fáciles de compartir o enviar a otros usuarios/programas.
+
+        ***
+            vamos a guardar archivos mediante serialización, estructura de datos en memoria (objetos, etc) lo transforma en una secuencia de caracteres (strings, string muy largos). Lo utilizaremos cuando tengamos poquitos datos que queramos que persistan.
+        ***
+
+    Desventajas del uso de archivos
+
+        - Consultas sobre algún dato puntual entre todos los datos almacenados(y no podamos guardar todo el lote de datos en memoria).
+
+        - Ediciones de datos puntuales(que no requieran sobreescribir el archivo por completo)
+
+        - Lecturas que combinen datos obtenidos de varios archivos (nuevamente, suponiendo que no podemos guardar todos los datos en memoria).
+
+        - Probablemente sea mejor considerar el uso de un motor de base de datos.
+
+    Manejo de Archivos en NodeJS
+
+        Módulo nativo file systema: fs
+
+            - fs es la abreviatura en inglés para file system o sistema de archivos y es, además, uno de los módulos más básicos y útiles de Node.js.
+
+            - En Node.js es posible manipular archivos a través de fs (crear, leer, modificar, etc.)
+
+            - La mayoría de las funciones que contiene este módulo pueden usarse tanto de manera sincrónica como asincrónica.
+
+            Aclaración: Hay que tener en cuenta que esto sólo aplica a Node.js, desde el navegador no es posible manipular archivos dado que sería muy inseguro.
+
+
+            Uso de fs en nuestro código
+
+                Para poder usar este módulo solo debemos importarlo con la función require al comienzo de nuestro archivo fuente:
+
+                    const fs = require("fs");
+
+                    Para ejecutar los archivos, se debe abrir la terminal y escribir "node nombreArchivo" Ej: node app2.js
+
+        Operaciones Sincrónicas
+
+            Operaciones Sincrónicas: General
+
+                - Las funciones sincrónicas terminan con "Sync"
+
+                - Son operaciones bloqueantes que devuelven un resultado
+
+                Podemos listar algunas de ellas:
+
+                    - readFileSync: lectura de un archivo de forma sincrónica
+                    - writeFileSync: escritura de un archivo en forma sincrónica
+                    - appendFileSync: actualización de un archivo de forma sincrónica (al final)
+                    - unlinkSync: borrado de un archivo en forma sincrónica
+                    mkdirSync: creación de una carpeta 
+
+            Acerca de las rutas...
+
+                Si las rutas comienzan con un "" o "/." se trata de una ruta relativa:
+
+                    Supongamos que el programa se está ejecutando en la carpeta "/user/documents/workspace/proyecto/". Si llamamos a alguna función con la ruta: "./mi-archivo.txt" o "mi-archivo.txt", estaremos en realidad leyendo la ruta: /users/documents/workspace/proyecto/mi-archivo.txt".
+                
+                Si la ruta, en cambio, comienza con "/", estaremos leyendo exactamente esa ruta.
+
+            Leer un archivo (fs.readFileSync(path, encoding))
+
+                - fs.readFileSync(path, encoding)
+                    const data = fs.readFileSync("./rest-input-sync.txt", "utf-8")
+                    console.log(data)
+
+                    - El primer parámetro es un string con la ruta del archivo que queremos leer.
+                    - El segundo parámetro indica el formato de codificación de caracteres con que fue escrito el dato que estamos leyendo.
+                    - El formato que utilizaremos con más frecuencia será "utf-8" (ingles: 8-bit Unicode Transformation Format, español: Formato de Codificación de caracteres Unicode).
+
+                    Ejemplo:
+
+                        const fs = require("fs")
+
+                        const ruta = "ejemplo.txt"
+
+                        try{
+                            const contenido = fs.readFileSync(ruta,"utf-8")
+                            console.log(contenido)
+                        }
+                        catch (error){
+                            throw new Error(`Error en lectura: ${error.message}`)
+                        }
+
+            Sobreescribir un archivo (fs.writeFileSync(ruta, datos)) 
+
+                - fs.writeFileSync(ruta, datos) //sobre-escribe archivo
+                    fs.writeFileSync("./test-output-sync.txt", "ESTO ES UNA PRUEBA \n")
+
+                    - El primer parámetro es un string con la ruta del archivo en el que queremos escribir.
+                    - El segundo parámetro indica lo que queremos escribir.
+                    - La función admite un tercer parámetro opcional para indicar el formato de codificación de caracteres con que queremos escribir el texto: por defecto "utf-8".
+                    - Si la ruta provista fuera válida, pero el nombre del archivo no existiera, la función creará un nuevo archivo con el nombre provisto.
+                    
+            Agregar contenidos a un archivo (fs.appendFileSync(ruta,datos))
+
+                - fs.appendFileSync("./test-output-sync.txt","ESTO ES UN AGRAGADO \n")
+
+                    - El primero parámetro es un string con la ruta del archivo al que le queremos agregar contenidos.
+                    - El segundo parámetro indica lo que queremos agregar.
+                    - La función admite un tercer parámetro opcional para indicar el formato de codificación de caracteres con que queremos escribir el texto: por defecto "utf-8".
+                    - Si la ruta provista fuera válida, pero el nombre de archivo no existiera, la función creará un nuevo archivo con el nombre provisto.
+
+            Borrar un archivo (fs.unlinkSync(ruta))
+
+                fs.unlinkSync("./test-output-sync.txt")
+
+                    - El único parámetro es un string con la ruta del archivo que queremos borrar.
+            
+            Manejo de Errores
+
+                Ante una situaciòn de error, las excepciones se lanzan inmediatamente y se pueden manejar usando try...catch. Esta forma de capturar errores se puede utilizar en todas las funciones sincrónicas de acceso al sistema de archivos.
+
+                    try{
+                        const data = fs.readFileSync("/ruta/que/no/existe")
+                    }
+                    catch (err){
+                        throw new Error(`Error en lectura: ${err.message}`)
+                    }
+
+            Ejercicio:
+
+                Realizar un programa que:
+
+                    a) Guarde un archivo llamado fyh.txt con la fecha y hora actual.
+                    b) Lea nuestro propio archivo de programa y lo muestre por consola.
+                    c) Incluya el manejo de errores con try catch (progresando las excepciones con throw new Error)
+
+                    Aclaración: Utilizar las funcones sincrónicas de lectura y escritura de archivos del módulo fs de node.js
+
+                    Respuesta Danko:
+
+                        const fs = require("fs");
+
+                        const fecha = new Date().toLocaleDateString();
+
+                        rutaNombreArchivo = "./fyh.txt";
+
+                        try{
+                            fs.appendFileSync(rutaNombreArchivo, `fecha: ${fecha}\n`, "utf-8");   
+                        } catch (err){
+                            throw new Error(`Error de escritura: ${err.message}`)
+                        }
+
+                        try{
+                            const data = fs.readFileSync(rutaNombreArchivo, "utf-8");
+                            console.log(data);
+                        } catch (err){
+                            throw new Error(`Error de lectura: ${err.message}`);
+                        }
+
+        Operaciones Asincrónicas
+
+            Operaciones Asincrónicas vía Callbacks
+
+                Introducción: fs con Callbacks
+
+                    - Las funciones asincrónicas tienen el mismo nombre que sus versiones sincrónicas, pero sin la palabra "Sync" al final.
+                    - Son operaciones no bloqueantes.
+                    - Reciben un nuevo último parámetro: un callback.
+                    - Los callbacks pueden recibir un primero parámetro destinado al error (si lo hubiere) para saber cómo manejarlo y un segundo parámetro, en caso de que la función en cuestión devuelva algún resultado, para indicar qué hacer con el mismo.
+                    - Para manejar los errores que pueden surgir de su ejecución, no será necesario ejecutarlas utilizando try/catch.
+
+                Podemos listar algunas de ellas:
+
+                    - readFile: lectura de un archivo en forma asincrónica
+                    - writeFile: escritura de un archivo en forma asincrónica.
+                    - appendFile: actualización de un archivo en forma asincrónica.
+                    - unlink: borrado de un archivo en forma asincrónica.
+                    - mkdir: creación de una carpeta
+
+                Leer un archivo (fs.readFile(ruta, econding callback))
+
+                    - fs.readFile(ruta, econding callback)
+
+                    - Recibe los mismos parámetros que su versión sincrónica, más el callback con un parámetro para manejar algún eventual error. La función se encarga internamente de abrir y cerrar el archivo una vez finalizado su uso.
+
+                    Ejemplo:
+
+                        fs.readFile("/ruta/al/archivo", "utf-8", (error,contenido) => {
+                            if(error){
+                                //hubo un error, no pude leerlo, hacer algo!
+                            } else{
+                                //en este punto del código puedo acceder a todo el contenido del archivo a través de la variable "contenido"
+                            }
+                        })
+
+                Sobre-escribir un archivo (fs.writeFile(ruta, datos, callback))
+
+                    - fs.writeFile(ruta, datos, callback) //sobreescribir archivo
+
+                    - Recibe los mismos parámetros que su versión sincrónica, más el callback con un parámetro para manejar algún eventual error. La función se encarga internamente de abrir y cerrar el archivo una vez finalizado su uso.
+
+                        Ejemplo:
+
+                        fs.writeFile("/ruta/al/archivo", "Texto de Prueba\n", error => {
+                            if(error){
+                                //hubo un error, no pude escribirlo, hacer algo!
+                            }
+                            else{
+                                // no hubo errores, hacer algo (opcional)
+                                console.log("agregado!")
+                            }
+                        })
+                    
+                Agregar contenidos a un archivo (fs.appendFile(ruta, datos, callback))
+
+                    - fs.appendFile(ruta, datos, callback) //agregar contenido a archivo
+
+                    - Recibe los mismos parámetros que su versión sincrónica, más el callback con un parámetro para manejar algún eventual error. La función se encarga internamente de abrir y cerrar el archivo una vez finalizado su uso.
+
+                    Ejemplo:
+
+                        fs.appendFile("ruta/al/archivo", "TEXTO A AGREGAR \n", error => {
+                            if(error){
+                                //hubo un error, no pude agregarlo, hacer algo!
+                            } else {
+                                //no hubo errores, hacer algo (opcional)
+                                console.log("agregado!")
+                            }
+                            
+                        })
+
+                Borrar un archivo (fs.unlink(callback))
+
+                    - fs.unlink(ruta, callback)
+
+                    - Recibe los mismos parámetros que su versión sincrónica, más el callback con un parámetro para manejar algún eventual error. La función se encarga internamente de abrir y cerrar el archivo una vez finalizado su uso.
+
+                    Ejemplo:
+
+                            fs.unlink("ruta/al/archivo", error => {
+
+                            if(error){
+                                //hubo un error, no pude borrarlo, hacer algo!
+                            } else {
+                                //no hubo errores, hacer algo (opcional)
+                                console.log("borrado!")
+                            }
+                            
+                        })
+
+                Crear una carpeta (fs.mkdir(ruta,callback))
+
+                    Ejemplo:
+
+                        fs.mkdir(ruta, error => {
+                            if(error){
+                                // hubo un error, no pude crear la carpeta! hacer algo!
+                            } else {
+                                // no hubo errores, hacer algo (opcional)
+                                console.log("carpeta creada!")
+                            }
+                        })
+                
+                Leer el contenido de una carpeta (fs.readdir(ruta, callback))
+
+                        Ejemplo:
+
+                            fs.readdir( ruta, (error, nombres) => {
+                                if(error){
+                                    //hubo un error, no pude leer la carpeta! hacer algo!
+                                }
+                                else{
+                                    //hacer algo con los nombres!
+                                    console.log(nombres)
+                                }
+                            })              
+
+            Operaciones Asincrónicas via Promesas
+
+                Introducción: fs con Promesas
+
+                    - El módulo fs nos permite operar tanto de forma sincrónica como asincrónica.
+                    - fs inicialmente ofrecía funciones que reciben un callback para manejar el asincronismo.
+                    - En una actualización de este módulo se agregaron versiones de funciones asincrónicas qe en lugar de recibir callbacks, operan mediante promesas con then/catch.
+                    - Posteriormente se incluyó una sintaxis simplificada utilizando las nuevas palabras reservadas "async" y "await"
+
+                Leer un archivo (fs.promises.readFile(ruta,encoding))
+
+                    fs.promises.readFile(ruta,encoding)
+
+                        Ejemplo:
+
+                            const fs = require("fs");
+
+                            //Leo el archivo usando sintaxis then/catch
+                            function leerTC(){
+                                fs.promises.readFile("/ruta/al/archivo", "utf-8");
+                                .then(contenido => {
+                                    console.log(contenido);
+                                })
+                                .catch(err => {
+                                    //hubo un error, no pude leerlo, hacer algo!
+                                    console.log("Error de lectura!", err);
+                                })
+                            }
+                            leerTC();
+
+                            //Leo el archivo usando sintaxis async/await
+                            async function leerAA(){
+                                try{
+                                    const contenido = await fs.promises.readFile("/ruta/al/archivo","utf-8");
+                                    console.log(contenido);
+                                }
+                                catch(err){
+                                    //hubo un error, no pude leerlo, hacer algo!
+                                    console.log("Error de lectura!", err);
+                                }
+                            }
+                            leerAA();
+
+                            - Esta función recibe los mismos parámetros que su versión sincrónica y se encarga internamente de abrir y cerrar el archivo una vez finalizado su uso.
+
+                            **comentario Danko: me gusta mas el manejo de las promesas con then y catch.
+
+                ¡Aclaraciones!
+
+                    - En el caso de querer hacer algo con la variable fuera del bloque try/catch, la declaración debería hacerse fuera del mismo.
+                    - Recordar que debemos anteponer la palabra "await" al llamado a la función para que ésta se comporte de manera bloqueante.
+                    - Si se omitiera la palabra "await" la instrucción console.log(contenido) se ejecutaría ANTES de que a la variable contenido se le asigne el resultado de la operación de lectura del archivo.
+                    - Recordar también que la palabra "await" puede usarse ÚNICAMENTE denro de una función de tipo "async".
+                    - Dado que estas funciones ya no poseen un parámetro que nos permite elegir cómo manejar los errores que pueden surgir de su ejecución, vuelve a ser necesario ejecutarlas utilizando try/catch.
+                
+                Sobre-escribir un archivo (fs.promises.writeFile(ruta,datos))
+
+                    fs.promises.writeFile(ruta,datos)
+
+                        Ejemplo:
+
+                            async function escribir(){
+                                await fs.promises.writeFile("/ruta/al/archivo", "TEXTO DE PRUEBA\n")
+                                console.log("guardado!")
+                            } catch(err){
+                                //huno un error, no pude escribirlo, hacer algo!
+                                console.log(err)
+                            }
+                            escribir();
+
+               Agregar contenidos a un archivo(fs.promises.appendFile(ruta,datos))
+
+                    fs.promises.appendFile(ruta,datos)
+
+                        Ejemplo:
+
+                            async function agregar(){
+                                try{
+                                    await fs.promises.appendFile("/ruta/al/archivo", "TEXTO DE PRUEBA \N")
+                                    console.log("agregado!")
+                                }
+                                catch(err){
+                                    //hubo un error, no pude escribirlo,hacer algo!
+                                }
+                            }
+                            agregar();
+
+Clase 5 | Administradores de Paquetes - NPM
+
+    Node.js
+
+        ¿Qué es?
+
+            - Node.js es un entorno de tiempo de ejecución de Javascript.
+            - Node.js fue creado por los desarrolladores originales de Javascript e incluye todo lo que se necesita para ejecutar un programa escrito en JavaScript por fuera del navegador.
+            - Se basa en el motor de tiempo de ejecución Javascript V8, el mismo que usa Chrome para convertir el Javascript en código de máquina.
+            - Node.js está escrito en C++ y dispone de módulos nativos.
+        
+        Escribir nuestro primer programa en Node.js
+
+            Requerimientos
+                
+                - Node.js 16.X.X
+                - Visual Studio Code
+                - Git (seleccionar la instalación de git bash si crresponde, ver próximo punto). //no entendí esto.
+                - Una consola (elegir según corresponda):
+                    - PowerShell (Windows 10, ya viene instalada)
+
+            Ejecución desde archivo JS.
+
+                1. Crear una carpeta de proyecto.
+                2. Abrir la carpeta con el VSCode.
+                3. Crear un archivo llamado main.js dentro de esa carpeta.
+                4. Escribir código en main.js y guardarlo.
+                5. Abrir una terminal (la que hayan elegido), ya sea en forma externa o desde dentro del VSCode.
+                6. Ejecutar el programa desde la terminal corriendo la instrucción: node main.js
+
+        Módulos nativos en Node.js
+
+            - Un módulo es un conjunto de funciones y objetos de JavaScript que las aplicaciones externas pueden usar.
+            - Node.js posee varios módulos incorporados (nativos) compilados en binario. Estos módulos básicos están definidos en el código fuente de Node en la carpeta lib/.
+            - Los módulos básicos tienen la preferencia de cargarse primero si su identificador es pasado desde require().
+            - Por ejemplo, require("fs") siempre devolverá lo construído en el módulo fs (FileSystem), incluso si hay un fichero con ese nombre.
+
+    Administradores de Paquetes (Package Managers)
+
+         Concepto
+
+            - Los Package Managers (o Administradores de paquetes) sirven para no tener que descargar, instalar y mantener las dependencias de un proyecto a mano.
+            - Estas aplicaciones facilitan la descarga e instalación de las librerías que utiliza el proyecto.
+            - Se requiere que conozcamos el nombre exacto de la librería (y versión deseada si es necesario) y contar con conexión a internet.
+            - Mediante un comando se descarga de un repositorio centralizado la versión correspondiente de la dependencia especificada y se agregará al proyecto.
+
+        NPM (NodeJS Package Manager)
+
+            ¿Qué es?
+
+                Node.js cuenta con su propio administrador de paquetes: NPM (Node.js Package Manager)
+            
+            Instalando dependencias con NPM
+
+                //Global:
+                npm install -g nombre-de-la-libreria
+                //Local:
+                npm istall nombre-de-la-libreria
+
+                - Las dependencias pueden instalarse de forma global o local.
+                - Si instalamos una dependencia en forma global, todos nuestros programas desarrollados en NodeJS contarán con esa librería, y con la versión que haya sido instalada.
+                - En cambio, si instalamos en forma local, podremos elegir exactamente qué librería y con qué versión contará cada proyecto que desarrollemos.
+
+                ¡A tener en cuenta!
+
+                    - La instalación local de dependencias es la opción mas recomendable, para poder tener múltiples proyectos usando distintas versiones de una misma librería sin generar problemas de compatibilidad al actualizar a una versión que no sea retrocompatible con las anteriores.
+
+                    - Sin embargo, muchas veces es útil instalar en forma global librerías utilitarias (por ejemplo librerías de testing) que son usadas para facilitar las tareas de programación y revisión durante la etapa de desarrollo pero que no son necesarias para el uso de la aplicación.
+
+            El archivo "package.json"
+
+                 - Es un archivo de configuración en formato JSON que es parte de un proyecto Node.js
+                 - Podemos crearlo mediante la instrucción: npm init -y
+                 - Podemos especificar en este archivo la lista de dependencias, que son las librerías que usa el proyecto para funcionar o para realizar distintos tipos de testing.
+
+                 **--> en main se define qué archivo ejecutará inicialmente
+                 **--> en los script por convención se configura "start":"node main.js" con esto se puede ejecutar el programa desde la terminal por medio de "npm start"
+                 **--> vamos agregando librerías a las dependencias de nuestro proyecto (en package.json) con "npm install <algún-módulo>" o "npm install -D <algún-módulo-dev>".
+                 **--> es muy útil cuando se requiere compartir el proyecto; como tu proycto tendrá un package.json con todas las depedencias que necesitas, solo tendrás que instalarlas con "npm install". Asi también se reduce el tamaño de los archivos al compartir.
+
+            Manejo automatizado de dependencias
+
+                - Siempre que hayamos especificado nuestras dependencias en el archivo de configuración (package.json) podremos actualizar y mantener de forma fácil y segura las dependencias del proyecto con el comando "npm install".
+                - Además podemos hacer que npm agrege como dependencia al package.json un módulo que queramos instalar. Si lo queremos como dependencia del proyecto, al comando "install" le agregamos el nombre del módulo: "npm install <algún-módulo>".
+                - Si sólo es una dependencia del entorno de desarrollo, le agregamos --save-dev o -D: "npm install --save-dev <algún-módulo-dev>" o "npm install -D <algún-módulo-dev>".
+
+            Versionado (Ejemplo: 2.0.4)
+
+                Las librerías de NPM siguen un estandar de versionado de tres números, separados entre sí por un punto:
+
+                    - Major Release: El primero número corresponde a actualizaciones grandes/significativas que incluyen muchas nuevas características, o que cambian de manera significativa el funcionamiento de las existentes.
+
+                    - Minor Release: El segundo número corresponde a actualizaciones pequeñas que agregan pocas cosas nuevas o actualizan algún detalle del funcionamiento de la librería.
+
+                    - Patches: el tercer número corresponde a arreglos o parches que corrigen defectos en las funcionalidades de la librería.
+
+            Manejo Avanzando del Versionado
+
+                Cada una de las versiones de las dependencias está precedida por un símbolo (~ ^ *) que indica la forma en la que deseamos que se actualice ese módulo cada vez que ejecutamos "npm install"
+
+                ~ (solo patches)
+
+                    Si escribimos en nuestro package.json: ~0.13.0
+                        - Cuando salga la versión 0.13.1, se actualizará en nuestro proyecto ya que es un patch
+                        - Cuando salga la versión 0.14.0, no se actualizará ya que es un Minor Release.
+                        - Cuando salga la versión 1.1.0, no se actualizará ya que es un Major Release.
+
+                ^ (patches y actualizaciones menores)
+
+                    Si escribimos en nuestro package.json: ^0.13.0
+                        - Cuando salga la versión 0.13.1, se actualizará en nuestro proyecto ya que es un patch
+                        - Cuando salga la versión 0.14.0, se actualizará ya que es un Minor Release.
+                        - Cuando salga la versión 1.1.0, no se actualizará ya que es un Major Release.
+
+                * (todas las actualizaciones)
+
+                    Si escribimos en nuestro package.json: *0.13.0
+                        - Cuando salga la versión 0.13.1, se actualizará en nuestro proyecto ya que es un patch
+                        - Cuando salga la versión 0.14.0, se actualizará ya que es un Minor Release.
+                        - Cuando salga la versión 1.1.0, se actualizará ya que es un Major Release.
+
+                Más Símbolos
+
+                    > descargar/actualizar a cualquier versión posterior a la dada.
+                    >= descargar/actualizar a cualquier versión igual o posterior a la dada.
+                    <= descargar/actualizar a cualquier versión igual o anterior a la dada.
+                    < descargar/actualizar a cualquier versión anterior a la dada.
+
+                Más Opciones
+
+                    - Finalmente, si no se incorpora ningun símbolo, se acepta unicamente la versión específica.
+                    - Si en lugar de escribir una versión, se escribe "latest", se descargará o actualizará siempre a la última versión disponible.
+                    - Adicionalmente se pueden crear combinaciones con los criterios anteriores. Por ejemplo: 1.0.0 || >= 1.1.0 < 1.2.0 usará la versión 1.0.0 (si la encuentra) o alguna a partir de 1.1.0, pero anterior a las 1.2.0
+
+Clase 6 | Servidores Web
+
+    Instalar Nodemon
+
+        - Vamos a instalar la dependencia nodemon de forma global usando npm.
+        - Nodemon nos ayuda en el desarrollo relanzando la ejecución de Node.js en el caso de que algún archivo de nuestro proyecto cambie.
+        - Instalamos la librería desde una terminal ejecutando: npm install nodemon
+
+    Módulo HTTP
+
+        - HTTP es un módulo nativo de Node.js
+        - Trabaja con el protocolo HTTP, que es el que se utiliza en internet para transferir datos en la Web.
+        - Nos va a servir para crear un servidor HTTP que acepte solicitudes desde un cliente web.
+        - Para poder utilizarlo en nuestro código, tenemos que requerirlo mediante la instrucción require("http") y guardarlo en una variable para su posterior uso.
+
+    Servidor HTTP paso a paso
+
+        Paso 1
+
+            const http = require("http)
+
+                - A partir de este momento, tenemos una variable http (que en realidad es un objeto) sobre la que podemos invocar métodos que están en el módulo requerido.
+                - Por ejemplo, una de las tareas implementadas en el módulo HTTP es la de crear un servidor, que se hace con el método "createServer()".
+                - Este método recibirá un callback que se ejecutará cada vez que el servidor reciba una petición.
+        
+        Paso 2
+
+            const server = http.createServer((peticion, respuesta) => {
+                respuesta.end("Hola mundo")
+            })
+
+                - la función callback que enviamos a createServer() recibe dos parámetros que son la petición y la respuesta.
+                - La petición por ahora no la utilizamos, pero contiene datos de la petición realizada.
+                - La respuesta la usaremos para enviarle datos al cliente que hizo la petición.
+                - de modo que "respuesta.end()" sirve para terminar la petición y enviarle datos al cliente.
+
+        Paso 3
+
+            const connectedServer = server.listen(8080, () => {
+                console.log(`Servidor HTTP escuchando en el puerto ${connectedServer.adress().port}`)
+            })
+        
+            - Con esto le decimos al servidor que escuche en el puerto 8080, aunque podríamos haber puesto cualquier otro puerto que nos hubiera gustado.
+            - "listen()" recibe tambié una función callback que realmente no sería necesaria, pero que nos sirve para hacer cosas cuando el servidor se haya iniciado y esté listo. Simplemente, en esa función callback indico que estoy listo y escuchando en el puerto configurado.
+            - Listen, además, devuelve un objeto que contiene los datos del servidor conectado.
+
+        Código Completo:
+
+            const http = require("http);
+
+            const server = http.createServer((peticion, respuesta) => {
+                respuesta.end("Hola mundo");
+            })
+
+            const connectedServer = server.listen(8080, () => {
+                console.log(`Servidor HTTP escuchando en el puerto ${connectedServer.adress().port}`);
+            })
+
+            - Este es el código completo. En muy pocas líneas de código generamos un servidor web que está escuchando en un puerto dado. Ahora podemos guardar este archivo con extensión .js, por ejemplo: "servidor.js"
+
+        Paso 4
+
+            Iniciar el Servidor
+
+                1. Vamos desde la línea de comandos a la carpeta donde guardamos el archivo "servidor.js" y ejecutamos el comando "node" seguido del nombre del archivo que pretendemos ejecutar: "node servidor.js".
+                2. En la consola de comandos aparecerá que nuestro servidor está escuchando en el puerto 8080.
+                3. El modo de comprobar que el servidor realmente está escuchando a solicitudes de clientes en dicho puerto es acceder con un navegador a la dirección: http://localhost:8080.
+                4. En la vista del navegador se mostrará el mensaje "Hola mundo!" devuelto por el servidor.
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+            00:52:48
+
+    Express
+
+        Implementación de un servidor http en Express
+
+            Introducción
+
+                NodeJS cuenta con módulos nativos para manejar el envío y recepción de peticiones de tipo http/s, sin embargo, usaremos para nuestra aplicación un módulo externo llamado express.
+
+                Algunas de sus principales características son:
+                    - Es muy popular y fácil de usar.
+                    - Nos facilitará la tarea de crear los distintos puntos de entrada de nuestro servidor.
+                    - También permite personalizar la manera en que se maneja cada petición en forma más simple y rápida.
+
+            Express.js
+
+                - Express es un framework web minimalista, con posibilidad de ser utilizado tanto para aplicaciones/páginas web como para aplicaciones de servicios. Cómo todo módulo, lo primero que debemos realizar es agregarlo como dependencia de nuestro proyecto.
+
+                - Instalación desde la consola: "npm install express"
+            
+        Express como framework: soporte para servidores REST
+
+            Introducción
+
+                Express nos permite definir, para cada tipo de petición HTTP que llegue a una determinada URL, qué acciones debe tomar, mediante la definición de un callback para cada caso que consideremos necesario incluir en nuestra API.
+
+            Uso del Módulo
+
+                Para poder usar el módulo, lo primero que debemos hacer es importarlo al comienzo de nuestro archivo. El objeto obtenido luego del import es una función. Al ejecutarla, nos devolverá la aplicación servidor que configuraremos posteriormente con los detalles de nuestra aplicación.
+
+                Ejemplo de inicialización:
+
+                    const express = require("express")
+                    const App = express()
+
+            Conexión del Servidor
+
+                Debemos indicar en qué puerto de nuestra computadora queremos que nuestra aplicación comience a escuchar peticiones. Este puerto será de uso exclusivo de nuestro servidor, y no podrá ser compartido por otras aplicaciones.
+
+                Ejemplo de conexión:
+
+                    const PORT = 8080;
+                    const server = app.listen(PORT, () => {
+                        console.log(`servidor http escuchando en el puerto ${server.address().port}`)
+                    })
+
+                    - Si el puerto elegido es el 0, express elegirá un puerto entre los disponibles que tenga el sitema operativo en ese momento.
+
+            Manejo de errores de conexión
+
+                Para indicar una situación de error en la puesta en marcha del servidor, podemos configurar el evento de error, a través del método "on" sobre la salida de "listen"
+
+                Ejemplo de conexión (con evento de error):
+
+                    const PORT = 8080;
+                    const server = app.listen(PORT, () => {
+                        console.log(`servidor http escuchando en el puerto ${server.address().port}`)
+                    })
+                    server.on("error", error => console.log(`Error en servidor ${error}`))
+
+                    - El argumento "error" del callback configurado para el evento error, nos da la descripción del error ocurrido.
+
+            Configuración petición Get
+
+                Cuando queremos obtener algún tipo de información del servidor utilizamos peticiones de tipo GET. Este tipo de peticiones son las mas comunes. Entonces, configuraremos en nuestro servidor un manejador para estas peticiones. Como respuesta, devolveremos el resultado deseado en forma de objeto.
+
+                Ejemplo de manejador de peticiones tipo GET a la ruta raíz del servidor:
+
+                app.get("/", (req,res) => {
+                    res.send({ mensaje: "hola mundo"})
+                })
+            
+        Despliegue en un servidor en la Nube
+
+            Despliegue en la Nube
+
+                - Tomaremos el servidor del desafío anterior y lo desplegaremos en la nube.
+                - Utilizaremos el servicio gratuito provisto por glitch.com
+                - Nos basaremos en un proyecto base provisto por el sitio, que contiene algunas carpetas y archivos para arrancar un proyecto ExpressJS desde cero. Podemos acceder a este proyecto en la siguiente URL: https://glitch.com/edit/#!/hello-express
+                - Es necesario crear una cuenta (gratuita) para que nuestros proyectos persistan por más de 5 días desplegados. Utilizaremos esta funcionalidad en próximos desafíos durante el curso.
+
+Clase 7 | Express Avanzado
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            
+
+
+
+
+
+
+
+
+
+                
+
+
+
+
+
+                 
+
+
+
+
+
+                            
+
+
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+        
+
+        
+
+
+
+         
+
+
+
+
+        
+    
