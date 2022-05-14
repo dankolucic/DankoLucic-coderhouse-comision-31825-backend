@@ -1,26 +1,30 @@
 const express = require("express");
 
-const { controladoresApi } = require("./controllers/controladoresApi-producto.js");
+const { routerProductos } = require("./routes/routerProductos.js");
+const { routerInfo } = require("./routes/routerInfo.js");
+
+
+// const { controladoresApi } = require("./controllers/controladoresApi-producto.js");
 // const { controladoresWeb } = require("./controllers/controladoresWeb.js");
 
 const app = express();
 
+//middlewares (app.use)
 app.use(express.json())
 app.use(express.urlencoded({ extended:true }))
+app.use("/api/productos", routerProductos);
 
 // app.get("/", controladoresWeb.root);
 // app.get("/inicio", controladoresWeb.inicio);
 // app.get("/perfil",controladoresWeb.perfil);
 
-app.get("/api/info", controladoresApi.getInfo);
-app.get("/api/productos", controladoresApi.getProductos);
-app.get("/api/productos/:idProducto", controladoresApi.getProducto);
+app.use("/api/info", routerInfo);
 
-app.post("/api/productos", controladoresApi.postProducto)
-
-app.delete("/api/productos/:idProducto", controladoresApi.deleteProducto);
-
-app.put("/api/productos/:idProducto", controladoresApi.putProducto);
+// app.get("/api/productos", controladoresApi.getProductos);
+// app.get("/api/productos/:idProducto", controladoresApi.getProducto);
+// app.post("/api/productos", controladoresApi.postProducto)
+// app.delete("/api/productos/:idProducto", controladoresApi.deleteProducto);
+// app.put("/api/productos/:idProducto", controladoresApi.putProducto);
 
 
 

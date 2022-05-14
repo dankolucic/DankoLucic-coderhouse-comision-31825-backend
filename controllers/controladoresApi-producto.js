@@ -1,7 +1,7 @@
 const { databaseProductos } = require("../databases/databaseProductos.js");
 
 const serverInfo = {
-    os: "lunix",
+    os: "macOSX",
     framework: "express"
 }
 
