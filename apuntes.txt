@@ -1044,7 +1044,9 @@ Clase 6 | Servidores Web
 
 Clase 7 | Express Avanzado
 
+Introducción
 
+Existen diversos tipos de aplicación: uno de los tipos mas nombrados en la actualidad son las aplicaciones RESTFul
 
 
 
