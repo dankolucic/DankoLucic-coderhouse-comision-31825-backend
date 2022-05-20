@@ -1,5 +1,7 @@
 const { databaseProductos } = require("../databases/databaseProductos.js");
 
+
+
 const serverInfo = {
     os: "macOSX",
     framework: "express"
@@ -28,8 +30,17 @@ const controladoresApi = {
     }, 
 
     getProductos: (req,res) => {
-            res.json(databaseProductos.obtenerTodos());
+            // res.json(databaseProductos.obtenerTodos());
+            let productos = databaseProductos.obtenerTodos();
+            res.render("inicio", { productos } );
         },
+    
+    getProductosRaiz: (req,res) => {
+        res.render("formulario");
+
+    },
+
+    
 
     postProducto: (req,res) =>  {
         const productoAgregado = databaseProductos.agregarProducto(req.body);

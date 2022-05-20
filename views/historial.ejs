@@ -1,22 +1,27 @@
 <h2>Historial</h2>
 
-<% if(personas.length > 0){  %> 
+<% if(productos.length > 0){  %> 
     <table>
         <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Edad</th>
+            <th>ID</th>
+            <th>Tittle</th>
+            <th>Price</th>
+            <th>Thumbnail</th>
+            
         </tr>
-        <% for(const persona of personas){ %> 
+        <% for(const producto of productos){ %> 
         <tr>
             <td>
-                <%-persona.nombre%> 
+                <%-producto.id%> 
             </td>
             <td>
-                <%-persona.apellido%> 
+                <%-producto.tittle%> 
             </td>
             <td>
-                <%-persona.edad%> 
+                <%-producto.price%> 
+            </td>
+            <td>
+                <%-producto.thumbnail%> 
             </td>
         </tr>
         <% }; %> 

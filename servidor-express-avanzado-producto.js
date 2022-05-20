@@ -2,6 +2,7 @@ const express = require("express");
 
 const { routerProductos } = require("./routes/routerProductos.js");
 const { routerInfo } = require("./routes/routerInfo.js");
+const { routerProductosRaiz } = require("./routes/routerProductosRaiz.js");
 
 
 // const { controladoresApi } = require("./controllers/controladoresApi-producto.js");
@@ -9,9 +10,16 @@ const { routerInfo } = require("./routes/routerInfo.js");
 
 const app = express();
 
+
 //middlewares (app.use)
 app.use(express.json())
 app.use(express.urlencoded({ extended:true }))
+
+//engine EJS
+app.set("view engine","ejs");
+
+app.use("/productos", routerProductosRaiz);
+
 app.use("/api/productos", routerProductos);
 
 // app.get("/", controladoresWeb.root);
