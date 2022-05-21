@@ -1044,9 +1044,9 @@ Clase 6 | Servidores Web
 
 Clase 7 | Express Avanzado
 
-Introducción
+    Introducción
 
-Existen diversos tipos de aplicación: uno de los tipos mas nombrados en la actualidad son las aplicaciones RESTFul
+    Existen diversos tipos de aplicación: uno de los tipos mas nombrados en la actualidad son las aplicaciones RESTFul
 
 Clase 9 | Motores de Plantillas (templates)
 
@@ -1188,7 +1188,56 @@ Clase 9 | Motores de Plantillas (templates)
 
             Así npm va a descagar todos los componentes necesarios para que podamos incorporar este motor en nuestro proyecto.
 
+Clase 10 | Pugs y ExpressJS
+
+    Pug JS
+
+        ¿Qué es PUG JS?
+
+            - Pug JS es un motor de plantillas que nos permiten usar archivos estáticos como plantillas, enviar valores para reemplazar variables dentro de las mismas y transformar estos archivos en páginas HTML que se envían al cliente.
+            - Express permite trabajar con muchos motores de plantillas, entre los que se encuentra Pug JS.
+            - Pug es muy fácil de implementar, solo bastaràn un par de líneas de código para indicarle a express que use Pug JS como motor de plantillas.
         
+        Instalar PUG JS
+
+            - Para esto abrimos el terminal, nos posicionamos en la ruta de nuestra aplicación y lo instalaremos con ayuda de npm con el siguiente comando:
+                - npm install pug
+
+        Configuración
+
+            - El primero paso es crear un directorio en la carpeta raiz de nuestro proyecto para guardar las plantillas que se utilizarán en la aplicación (views)
+            - Ahora tenemos que indicarle a express que "views" será nuestro directorio de plantillas. Y también indicarle cual será el motor de plantillas que se uitlizará (en este caso Pug JS). Lo configuramos con:
+                -  app.set("views","./views");
+                -  app.set("view engine", "pug");
+        
+        Crear nuestra primera plantilla (template)
+
+            - Una vez que se ha creado e instalado correctamente Pug JS solo queda crear nuestra primera plantilla y mostrarla al cliente. Para ello creamos el archivo hello.pug (.pug es la extensión de las plantillas) y la mostraremos al ingresar a la URL localhost:8080/hello
+            - archivo "hello.pug":
+                html
+                    head
+                        title="Mi primer plantilla Pug JS"
+                    body
+                        h1=mensaje
+                
+        Pug sintaxis
+
+            - Pug JS utiliza su propia sintaxis para declarar atributos html sin necesidad de abrir ni cerrar eticketas. En cambio se utiliza la tabulación para indicar que una etiqueta pertenece o está dentro de otra.
+            - En el ejemplo anterior, se està declarando una variable con nombre "mensaje". Esta será reemplazada con el valor que se enviará al momento de transformar de formato .pug a HTML.
+        
+        Siguiente Paso
+
+            - Se usa la función "render" para renderizar el archivo .pug. la función render está disponible en el objeto res (response). Esta función recibe dos parámetros: el nombre del archivo de la plantilla a mostrar y el objeto con los valores a mostrar:
+                - res.render("nombre-archivo", { objeto } );
+
+    EJS
+
+        ¿Qué es EJS?
+
+        
+
+
+
         
 
 
