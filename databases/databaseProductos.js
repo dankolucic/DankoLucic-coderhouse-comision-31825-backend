@@ -65,7 +65,7 @@ const databaseProductos = {
         return productoBuscado
     },
     agregarProducto: datos => {
-        //debería validar si es una persona. Ej: si ya existe no la agrego, tampoco si tiene un formato invalido, etc.
+        //debería validar si es un producto. Ej: si ya existe no la agrego, tampoco si tiene un formato invalido, etc.
         const producto = datos;
         producto.id = generarId();
         productos.push(producto);

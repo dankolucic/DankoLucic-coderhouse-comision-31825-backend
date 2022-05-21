@@ -1,0 +1,32 @@
+<h2>Historial</h2>
+
+{{#if hayProductos}}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Tittle</th>
+            <th>Price</th>
+            <th>Thumbnail</th>
+            
+        </tr>
+        {{#each productos}} 
+        <tr>
+            <td>
+                {{this.id}}
+            </td>
+            <td>
+                {{this.tittle}}
+            </td>
+            <td>
+                {{this.price}}
+            </td>
+            <td>
+                {{this.thumbnail}}
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+
+{{else}}
+<h3>No se encontraron datos</h3>
+{{/if}}

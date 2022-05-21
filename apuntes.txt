@@ -1048,6 +1048,150 @@ Introducción
 
 Existen diversos tipos de aplicación: uno de los tipos mas nombrados en la actualidad son las aplicaciones RESTFul
 
+Clase 9 | Motores de Plantillas (templates)
+
+    Concepto MVC (Modelo Vista Controlador)
+
+        - En la programación en general y en la programación web en particular existe el denominado patron MVC (Modelo Vista Controlador)
+        - Este patrón trata de separar los datos de su presentación. Por decirlo en terminos web, separar el código del programador del código del diseñador web.
+        - Las plantillas (templates) son una aproximación mas para resolver este problema.
+
+    Motores de Plantillas
+    
+        - Un motor de plantillas lee un archivo de texto (plantilla) que contiene la presentación ya preparada en un lenguaje pseudo HTML e inserta en èl la información dinámica que le ordena el "controlador" (la C de MVC) que representa la parte que une la vista con la información.
+        - La sintaxis a utilizar depende del motor de plantillas utilizado.
+        - Los motores de plantillas suelen tener un pequeño lenguaje de script que permite generar código dinámico.
+
+    Ventajas de utilizar motores de plantillas
+
+        - El código resultante es más organizado, y tenemos garantía de que no habrá HTML mal formado.
+        - Podemos separar nuestro equipo en dos, al trabajar interfaces de usuario sin necesidad de desarrollar en back-end
+        - Los motores de plantillas nos permiten reutilizar secciones de código ayudando así a mantener nuestro proyecto optimizado.
+        - Existen muchas utilidades que nos ayudan a dotar de mejor interacción a la parte visual de nuestras aplicaciones.
+        - Con los motores de plantillas podemos separar, optimizar y organizar nuestro código.
+
+    Desventanas de NO utilizar motor de plantillas
+
+        - La no utilización de un motor de plantillas puede afectar la velocidad de nuestro desarrollo de aplicaciones.
+        - El riesgo de hacer HTML mal formado es mucho mayor, por lo que obtener certificaciones para nuestro código se puede hacer difícil.
+        - El código resultante puede ser difícil de documentar y de compartir con otros desarrolladores.
+        - Si utilizamos código para generar HTML siempre será incómodo trabajar con caracteres especiales.
+        - Hay tendencia a no seprar la lógica de la aplicación de la presentación.
+
+    Ejemplo Genérico
+
+        HTML
+            ...
+            <body>
+                hola {{nombre}}
+            </body>
+            ...
+        JS
+            let datos = { nombre : "Juan"}
+        
+        Al procesar este fichero, el motor de plantillas lo recorrerá(el HTML), parseará y sustituirá esta "etiqueta clave" {{nombre}} por el valor que le hayamos indicado (por ejemplo el nombre del visitante) de forma que tengamos una presentación personalizada.
+
+    Handlebars
+
+        ¿Qué es Handlebars?
+
+            - Handlebars es un lenguaje de plantillas simple.
+            - Utiliza una plantilla y un objeto de entrada para generar HTML u otros formatos de texto.
+            - Las plantillas de Handlebars tienen el aspecto de texto normal con expresiones de Handlebars incrustadas.
+            - Una expresión de Handlebars se compone de {{ +algunos contenidos }}.
+            - Cuando se ejecuta la plantilla, las expresiones de Handlebars se reemplazan con valores de un objeto de entrada.
+
+        Ejemplo Handlebars Online
+
+            template:
+                <p>Hola {{nombre}} {{apellido}}</p>
+            Input:
+                {
+                    nombre: "Juan",
+                    apellido: "Perez"
+                }
+            Output:
+                <p>Hola Juan Perez</p>
+
+        Implementación de Hanldebars desde Cuando
+
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+            </head>
+            <body>
+                <span></span> <!-- para inyectar el resultado -->
+                <!-- incluir handlebars desde el CDN -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+                <script>
+                    const template = Handlebars.compile('<h1>{{nombre}}</h1>'); // compila la plantilla
+                    const html = template({ nombre: 'coder' }); // genera el html
+                    document.querySelector('span').innerHTML = html; // inyecta el resultado en la vista
+                </script>
+            </body>
+            </html>
+
+    Creando un motor de plantillas custom para express
+
+        - Utilizamos el método app.engine(ext, callback) para crear nuestro propio motor de plantillas. ext hace referencia a la extensión de archivo y callback es la función de motor de plantilla, que acepta como parámetros la ubicación del archivo, el objeto options y la función callback.
+        - El método app.set("views",path) especifica la carpeta de plantillas
+        - El método app.set("view enfine", name) registra el motor de plantillas.
+    
+        Ejemplo:
+
+            - El siguiente código es un ejemplo de implementación de un motor de plantilla muy simple para la representación de archivos ".ntl":
+
+                const fs = require('fs');
+                // defino el motor de plantilla
+                app.engine('ntl', function (filePath, options, callback) {
+                fs.readFile(filePath, function (err, content) {
+                    if (err) {
+                    return callback(new Error(err));
+                    }
+                    const rendered = content.toString()
+                                            .replace('#title#', ''+ options.title +'')
+                                            .replace('#message#', ''+ options.message +'');
+                    return callback(null, rendered);
+                });
+                });
+                app.set('views', './views'); // especifica el directorio de vistas
+                app.set('view engine', 'ntl'); // registra el motor de plantillas
+
+            - La aplicación ahora podrá representar archivos .ntl. Creamos un archivo denominado "index.ntl" en el directorio views con el siguiente contenido:
+
+                #title#
+                #message#
+
+            - A continuación, creamos la siguiente ruta en la aplicación:
+
+                app.get('/', function (req, res) {
+                res.render('index', { title: 'Hey', message: 'Hello there!'});
+                });
+
+    Handlebars con Express
+
+        Introducción
+
+            Handlebars puede funcionar de dos formas:
+                - desde el lado del Servidor
+                - desde el lado del cliente
+
+            Esta versatilidad hace que podamos decidir mejor como queremos realizar nuestras aplicaciones, ya que si es un SPA tal vez el enfoque del lado del cliente sea mas sencillo y útil, pero si queremos un website tal vez generar todo en el servidor sea mas útil.
+
+        Instalar Handlebars en el lado del Servidor
+
+            Para utilizar Handlebars del lado del servidor y así integrarlo con express ejecutamos el siguiente comando:
+                "npm install express-handlebars"
+
+            Así npm va a descagar todos los componentes necesarios para que podamos incorporar este motor en nuestro proyecto.
+
+        
+        
+
+
 
 
 
