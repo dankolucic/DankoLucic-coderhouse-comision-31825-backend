@@ -10,7 +10,6 @@ const { routerProductosRaiz } = require("./routes/routerProductosRaiz.js");
 
 const app = express();
 
-
 //middlewares (app.use)
 app.use(express.json())
 app.use(express.urlencoded({ extended:true }))
@@ -34,8 +33,6 @@ app.use("/api/info", routerInfo);
 // app.post("/api/productos", controladoresApi.postProducto)
 // app.delete("/api/productos/:idProducto", controladoresApi.deleteProducto);
 // app.put("/api/productos/:idProducto", controladoresApi.putProducto);
-
-
 
 const PORT = 8080;
 const server = app.listen(PORT, () => {

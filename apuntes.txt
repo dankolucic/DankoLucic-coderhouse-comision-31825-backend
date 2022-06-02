@@ -1232,9 +1232,58 @@ Clase 10 | Pugs y ExpressJS
 
     EJS
 
-        ¿Qué es EJS?
+        ¿Qué es EJS? (Plantillas de Javascript Incrustadas)
 
+            - EJS se encuentra entre los motores de visualización temáticos mas populares para node.js y express, con 5k estrellas en github y mas de 8 millones de descargas por semana en npm.
+            - EJS significa "plantillas de Javascript incrustadas" y podemos usarlo tanto en el lado del servidor como en el del cliente. En esta presentación, nos centraremos en la del lado del servidor.
+            - EJS es fácil de configurar y podemos incluir las partes repetibles de nuestro sitio (parciales) y pasar los datos a nuestras vistas.
+
+        Instalar EJS
+
+            - Para esto abrimos la terminal, nos posicionamos en la ruta de nuestra aplicación y lo instalaremos con la ayuda de npm con el siguiente comando
+                - npm install ejs
+
+        Configuración
+
+            - Configuramos EJS como motor de visualización de nuestra aplicación Express usando:
+            - app.set("view engine", "ejs");
+            - Creamos una carepta de vistas "views"
+            - EJS enviará una vista al usuario usando res.render(). Es importante tener en cuenta que res.render() buscará la vista en la carpeta "views".
+            - Por ejemplo, si definimos pages/index dentro de views, res.render("pages/index") buscará en views/pages/index.
+
+        Sintaxis básicas (etiquetas)
+
+            - <%= Incrusta en la platilla el valor tal cual está
+            - <%- Incrusta en la plattila el valor renderizado como HTML
+            - <% "Scriptlet": Admite instrucciones en JS para declaración de variables y control de flujo.
+
+            Ejemplo:
+                <% const estilo = "color:crimson;"; %>
+                <% if (message) { %>
+                <h2 style=<%=estilo%>><%= message.name %></h2>
+                <% } %>
         
+        Creando nuestras plantillas parciales
+
+            - Al igual que muchas aplicaciones que creamos, hay mucho código que se reutiliza.En EJS llamamos a estos códigos "parciales"
+            - En el ejemplo que mostramos a continuación, los definimos dentro de la carpeta "partials"
+
+        Añadiendo los parciales de EJS a Vistas
+
+            - Ahora tenemos nuestros parciales definidos. Lo único que debemos hacer es incluirlos en nuestras vistas.
+
+                - Utilizamos <%- include("RELATIVE/PATH/TO/FILE")%> para integrar un parcial de EJS en otro archivo.
+                - El guíon <%-en lugar de solo <% es para indicar a EJS que renderice HTML sin formato.
+                - La ruta al parcial es relativa al archivo actual.
+
+
+
+
+
+
+
+
+
 
 
 
