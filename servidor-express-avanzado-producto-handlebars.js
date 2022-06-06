@@ -1,5 +1,5 @@
 const express = require("express");
-const { engine } = require("express-handlebars")
+const { engine } = require("express-handlebars");
 
 const { routerProductos } = require("./routes/routerProductos.js");
 const { routerInfo } = require("./routes/routerInfo.js");
