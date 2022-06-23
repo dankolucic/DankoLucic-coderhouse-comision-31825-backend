@@ -1,14 +1,20 @@
-const express = require("express");
-const { engine } = require("express-handlebars");
-const { Server: HttpServer } = require("http");
-const { Server: SocketServer } = require("socket.io");
+import express from "express";
+import { engine } from "express-handlebars";
+import { Server as HttpServer } from "http";
+import { Server as SocketServer } from "socket.io";
+import { obtenerMensajes,agregarMensajes,obtenerProductos,agregarProductos} from "./mensajes-websocket-chat.js";
+
+
+// const { engine } = require("express-handlebars")
+// const { Server: HttpServer } = require("http")
+// const { Server: SocketServer } = require("socket.io")
 //npm install express socketio
-const { obtenerMensajes, agregarMensajes, obtenerProductos, agregarProductos } = require("./mensajes-websocket-chat");
+// const { obtenerMensajes, agregarMensajes, obtenerProductos, agregarProductos } = require("./mensajes-websocket-chat")
 
-const app = express();
+const app = express()
 
-const httpServer = new HttpServer(app);
-const io = new SocketServer(httpServer);
+const httpServer = new HttpServer(app)
+const io = new SocketServer(httpServer)
 
 app.use(express.static("public"));
 
@@ -17,34 +23,34 @@ app.use(express.json())
 app.use(express.urlencoded({ extended:true }))
 
 //engine handlebars
-app.engine("handlebars", engine());
-app.set("view engine","handlebars");
+app.engine("handlebars", engine())
+app.set("view engine","handlebars")
 
 //routers
 app.get("/", (req, res) => {
-    res.render("formulario");
+    res.render("formulario")
     // res.sendFile("index.html", { root : "./views"})
-});
+})
 
 //websocket
-io.on("connection", socket => {
+io.on("connection", async socket => {
     
     console.log("Alguien se conectó!")
-    const mensajes = obtenerMensajes();
-    const productos = obtenerProductos();
+    const mensajes = await obtenerMensajes()
+    const productos = await obtenerProductos();
     socket.emit("mensajes", { mensajes })
     socket.emit("productos", { productos })
 
-    socket.on("mensaje", mensaje => {
-        agregarMensajes(mensaje)
-        const mensajes = obtenerMensajes();
+    socket.on("mensaje",async mensaje => {
+        await agregarMensajes(mensaje)
+        const mensajes = await obtenerMensajes()
         io.sockets.emit("mensajes", { mensajes })
     
     })
 
-    socket.on("producto", producto => {
-        agregarProductos(producto)
-        const productos = obtenerProductos();
+    socket.on("producto", async producto =>  {
+        await agregarProductos(producto);
+        const productos = await obtenerProductos()
         io.sockets.emit("productos", { productos })
     })
     
@@ -56,7 +62,7 @@ io.on("connection", socket => {
 
 
 //server
-const PORT = 8080;
+const PORT = 8080
 const server = httpServer.listen(PORT, () => {
     console.log(`escuchando en el puerto ${server.address().port}`)
-});
+})
