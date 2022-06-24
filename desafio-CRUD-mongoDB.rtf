@@ -1,0 +1,218 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Arial-BoldMT;\f2\fnil\fcharset0 HelveticaNeue-Bold;
+\f3\fnil\fcharset0 HelveticaNeue-Light;\f4\fnil\fcharset0 HelveticaNeue-LightItalic;\f5\fnil\fcharset0 Menlo-Regular;
+\f6\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red187\green187\blue187;\red0\green0\blue0;\red60\green64\blue68;
+\red248\green250\blue249;\red25\green37\blue46;\red255\green255\blue255;\red149\green149\blue149;\red248\green250\blue249;
+\red25\green37\blue46;\red0\green0\blue0;\red68\green6\blue9;\red246\green200\blue185;}
+{\*\expandedcolortbl;;\cssrgb\c78156\c78156\c78156;\cssrgb\c0\c0\c0;\cssrgb\c30290\c31864\c33749;
+\cssrgb\c97647\c98431\c98039;\cssrgb\c12941\c19216\c23529;\cssrgb\c100000\c100000\c100000\c0;\cssrgb\c65058\c65058\c65058;\cssrgb\c97647\c98431\c98039;
+\cssrgb\c12941\c19216\c23529;\cssrgb\c0\c1\c1;\cssrgb\c34118\c4314\c3137;\cssrgb\c97647\c82745\c77255;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat5\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\margl1440\margr1440\vieww14220\viewh11460\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\b\fs42\fsmilli21333 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 >>\cf2 \strokec4  
+\f2 \cf2 \strokec3 Consigna:
+\f3\b0 \cf2  Utilizando Mongo Shell, crear una base de datos llamada 
+\f4\i \cf2 ecommerce
+\f3\i0 \cf2  que contenga dos colecciones: mensajes y productos.\cf3 \
+\
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \strokec5 use ecommerce\
+db.createCollection("productos")\
+db.createCollection("mensajes")\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf3 \cb7 \strokec3 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb1 \
+\pard\tx220\tx720\pardeftab720\sl500\partightenfactor0
+\cf2 Agregar 10 documentos con valores distintos a las colecciones mensajes y productos. El formato de los documentos debe estar en correspondencia con el que venimos utilizandoen el entregable con base de datos MariaDB.\'a0\
+\
+\pard\tx566\pardeftab720\sl500\partightenfactor0
+
+\fs42\fsmilli21333 \cf2 \outl0\strokewidth0 Definir las claves de los documentos en relaci\'f3n a los campos de las tablas de esa base. En el caso de los productos, poner valores al campo precio entre los 100 y 5000 pesos(eligiendo valores intermedios, ej: 120, 580, 900, 1280, 1700, 2300, 2860, 3350, 4320, 4990).\'a0
+\fs42\fsmilli21333 \cf8 \outl0\strokewidth0 \
+\pard\tx566\pardeftab720\sl500\partightenfactor0
+\cf8 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 db.productos.insertMany([\
+\cf9 \cb10 \outl0\strokewidth0 \{id:1, tittle:"tittle1\'94, price:100, thumbnail:"URL1\'94\},\cf5 \cb6 \outl0\strokewidth0 \strokec5 \
+  \{id:2, tittle:"tittle2", price:200, thumbnail:"URL2"\},\
+  \{id:3, tittle:"tittle3", price:300, thumbnail:"URL3"\},\
+  \{id:4, tittle:"tittle4", price:400, thumbnail:"URL4"\},\
+  \{id:5, tittle:"tittle5", price:500, thumbnail:"URL5"\},\
+  \{id:6, tittle:"tittle6", price:600, thumbnail:"URL6"\},\
+  \{id:7, tittle:"tittle7", price:700, thumbnail:"URL7"\},\
+  \{id:8, tittle:"tittle8", price:800, thumbnail:"URL8"\},\
+  \{id:9, tittle:"tittle9", price:900, thumbnail:"URL9"\},\
+  \{id:10, tittle:"tittle10", price:1000, thumbnail:"URL10"\}\
+  ])\
+\pard\tx566\pardeftab720\sl500\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf11 \cb1 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 db.mensajes.insertMany([\
+  \{id:1, autor:"autor1",texto:"texto1",fecha:"01/01/2022", hora:"14:00pm"\},\
+  \{id:2, autor:"autor2",texto:"texto2",fecha:"01/01/2022", hora:"14:00pm"\},\
+  \{id:3, autor:"autor3",texto:"texto3",fecha:"01/01/2022", hora:"14:00pm"\},\
+  \{id:4, autor:"autor4",texto:"texto4",fecha:"01/01/2022", hora:"14:00pm"\},\
+  \{id:5, autor:"autor5",texto:"texto5",fecha:"01/01/2022", hora:"14:00pm"\},\
+  \{id:6, autor:"autor6",texto:"texto6",fecha:"01/01/2022", hora:"14:00pm"\},\
+  \{id:7, autor:"autor7",texto:"texto7",fecha:"01/01/2022", hora:"14:00pm"\},\
+  \{id:8, autor:"autor8",texto:"texto8",fecha:"01/01/2022", hora:"14:00pm"\},\
+  \{id:9, autor:"autor9",texto:"texto9",fecha:"01/01/2022", hora:"14:00pm"\},\
+  \{id:10, autor:"autor10",texto:"texto10",fecha:"01/01/2022", hora:"14:00pm"\}\
+  ])\
+\pard\tx566\pardeftab720\sl500\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf8 \cb1 \strokec3 \
+\
+\cf2 Listar todos los documentos en cada colecci\'f3n.\cf8 \
+\
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \strokec5 db.productos.find()
+\f3\fs42\fsmilli21333 \cf8 \cb1 \strokec3 \
+
+\f5\fs26 \cf5 \cb6 \strokec5 db.mensajes.find()\
+\pard\tx566\pardeftab720\sl500\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf8 \cb1 \strokec3 \
+\
+\cf2 Mostrar la cantidad de documentos almacenados en cada una de ellas.\cf3 \uc0\u8232 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \strokec5 db.productos.countDocuments()\
+db.mensajes.countDocuments()\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf3 \cb1 \strokec3 \
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl500\partightenfactor0
+\ls1\ilvl0\cf2 Realizar un CRUD sobre la colecci\'f3n de productos:\uc0\u8232 \
+\pard\tx566\tx1133\pardeftab720\sl500\partightenfactor0
+\cf2 Agregar un producto m\'e1s en la colecci\'f3n de productos\'a0\
+\cf2 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 db.productos.insertOne(\{id:11, tittle:"tittle11", autor: "autor11", price:1100, thumbnail:"URL11"\})\
+\pard\tx566\tx1133\pardeftab720\sl500\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf2 \cb1 \strokec3 \
+\
+Realizar una consulta por nombre de producto espec\'edfico:\uc0\u8232 \
+\pard\tx566\tx1133\tx1700\pardeftab720\sl500\partightenfactor0
+\cf2 Listar los productos con precio menor a 1000 pesos.\
+\
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \strokec5 db.productos.find(\{ tittle:\{$exists:true\},tittle:"tittle1",price:\{$lt:1000\} \})\
+\pard\tx566\tx1133\tx1700\pardeftab720\sl500\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf2 \cb1 \strokec3 \
+\
+Listar los productos con precio entre los 1000 a 3000 pesos.\
+\
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \strokec5 db.productos.find(\{\
+  tittle:\{$exists:true\},\
+\pard\pardeftab720\sl480\partightenfactor0
+\cf9 \cb10 \outl0\strokewidth0 tittle:"tittle1",\cf5 \cb6 \outl0\strokewidth0 \strokec5 \
+\pard\pardeftab720\sl480\partightenfactor0
+\cf5   $and:[\
+    \{price:\{$lt:3000\}\},\
+    \{price:\{$gt:100\}\} \
+    ]\
+\})\
+\pard\tx566\tx1133\tx1700\pardeftab720\sl500\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf2 \cb1 \strokec3 \
+\
+Listar los productos con precio mayor a 3000 pesos.\
+\
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf9 \cb10 \outl0\strokewidth0 db.productos.find(\{ tittle:\{$exists:true\},tittle:"tittle1",price:\{$gt:3000\} \})
+\f3\fs42\fsmilli21333 \cf2 \cb1 \outl0\strokewidth0 \strokec3 \uc0\u8232 \
+\
+\pard\tx566\tx1133\tx1700\pardeftab720\sl500\partightenfactor0
+\cf2 Realizar una consulta que traiga s\'f3lo el nombre del tercer producto m\'e1s barato.\
+\
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \strokec5 db.productos.find(\{\},\{"tittle":1\}).sort(\{price:1\}).skip(2).limit(1)\
+\pard\tx566\tx1133\tx1700\pardeftab720\sl500\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf2 \cb1 \strokec3 \
+\
+\pard\tx566\tx1133\pardeftab720\sl500\partightenfactor0
+\cf2 Hacer una actualizaci\'f3n sobre todos los productos, agregando el campo stock a todos ellos con un valor de 100.\
+\
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \strokec5 db.productos.updateMany(\{tittle:\{$exists:true\}\},\{$set:\{stock:100\}\})\
+\pard\tx566\tx1133\pardeftab720\sl500\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf2 \cb1 \strokec3 \
+Cambiar el stock a cero de los productos con precios mayores a 4000 pesos.\'a0\uc0\u8232 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \strokec5 db.productos.updateMany(\{price:\{$exists:true\}, price:\{$gt:4000\}\}, \{$set:\{stock:0\}\})\
+\pard\tx566\tx1133\pardeftab720\sl500\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf2 \cb1 \strokec3 \
+\
+Borrar los productos con precio menor a 1000 pesos\'a0\uc0\u8232 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf9 \cb10 \outl0\strokewidth0 db.productos.deleteMany(\{price:\{$exists:true\}, price:\{$lt:1000\} \})\
+
+\f3\fs42\fsmilli21333 \cf2 \cb1 \outl0\strokewidth0 \strokec3 \
+\pard\tx566\pardeftab720\sl500\partightenfactor0
+\cf2 Crear un usuario 'pepe' clave: 'asd456' que s\'f3lo pueda leer la base de datos ecommerce.\
+Verificar que pepe no pueda cambiar la informaci\'f3n.\uc0\u8232 \cf3 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \strokec5 use admin\
+\pard\tx566\pardeftab720\sl500\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf3 \cb1 \strokec3 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \strokec5 db.createUser(\{user:"pepe",pwd:"asd456",roles:[\{role:"read",db:"ecommerce"\}]\})\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf3 \cb1 \strokec3 \
+Para validar, se establece una nueva conexi\'f3n en MongoDB Compass (usuario:\'94pepe\'94) y se intenta realizar un insert.\
+\
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f5\fs26 \cf5 \cb6 \strokec5 use ecommerce\
+db.productos.insertOne(\{prueba:123\})\
+\
+\pard\pardeftab720\sl480\partightenfactor0
+
+\f6\b \cf12 \cb13 \ul \ulc12 \strokec12 MongoServerError:
+\f5\b0 \ulnone  not authorized on ecommerce to execute command \{ insert: "productos", documents: [ \{ prueba: 123, _id: ObjectId('62b502343c8f8adce69bbbc3') \} \
+\pard\pardeftab720\sl480\partightenfactor0
+\cf5 \cb6 \strokec5 \
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs42\fsmilli21333 \cf3 \cb1 \strokec3 OK.\
+\
+\
+}
